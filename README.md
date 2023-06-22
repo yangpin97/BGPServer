@@ -6,4 +6,4 @@ a live BGP server peer FOR any country  实时获取全球BGP 路由软件
 . 例如 bgp -c ./config.ini -l ALL  为全球BGP bgp -c ./config.ini -l US 为美国路由 无需区分大小写
 . config.ini 配置文件只需简单设置 服务器routerid peer nexthop 和peer端IP 和peer 端ASN即可
 ##### 程序运行需要两个文件 map.json.gz、chinaBGPZip.gob 务必放置于bgp文件同一目录下 
-##### 建议在能科学上网的环境下运行 否则不一定保证能连接到实时路由
+##### 建议在能科学上网的环境下运行 否则不一定保证能接收到实时路由
