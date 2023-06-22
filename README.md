@@ -10,4 +10,4 @@ a live BGP server peer FOR any country  实时获取全球BGP 路由软件<br>
 ##### 程序运行需要两个文件 map.json.gz、chinaBGPZip.gob 务必放置于bgp文件同一目录下 
 ##### 建议在能科学上网的环境下运行 否则不一定保证能接收到实时路由
 ##### BGP 通信端口为TCP 179 请注意开发防火墙
-##### 仅用于学习目的
+##### *仅用于学习目的*
