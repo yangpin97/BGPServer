@@ -395,11 +395,11 @@ func main() {
 	// global configuration
 	if err := s.StartBgp(context.Background(), &api.StartBgpRequest{
 		Global: &api.Global{
-			Asn:              uint32(bgpConfig.ServerASN),
-			RouterId:         bgpConfig.ID,
-			ListenPort:       179, // -1 gobgp won't listen on tcp:
-			UseMultiplePaths: true,
-			ListenAddresses:  []string{"0.0.0.0"},
+			Asn:        uint32(bgpConfig.ServerASN),
+			RouterId:   bgpConfig.ID,
+			ListenPort: 179, // -1 gobgp won't listen on tcp:
+			//UseMultiplePaths: true,
+			ListenAddresses: []string{"0.0.0.0"},
 			GracefulRestart: &api.GracefulRestart{
 				Enabled:             true, // 启用Graceful Restart
 				RestartTime:         120,  // 重启时间（以秒为单位）
@@ -426,6 +426,10 @@ func main() {
 		},
 		Transport: &api.Transport{
 			LocalAddress: bgpConfig.UpdateSource,
+		},
+		EbgpMultihop: &api.EbgpMultihop{
+			Enabled:     true,
+			MultihopTtl: 32, // 设置跳数
 		},
 	}
 	if err := s.AddPeer(context.Background(), &api.AddPeerRequest{
