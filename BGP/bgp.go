@@ -349,11 +349,12 @@ func findInCN(IP string) bool {
 }
 
 type BGPConfig struct {
-	ID        string
-	ServerASN int
-	NextHop   string
-	ClientIP  string
-	ClientASN int
+	ID           string
+	ServerASN    int
+	NextHop      string
+	ClientIP     string
+	ClientASN    int
+	UpdateSource string
 }
 
 var bgpConfig BGPConfig
@@ -368,6 +369,7 @@ func loadIni(configPath string) *BGPConfig {
 	bgpConfig.ServerASN = sAsn
 	bgpConfig.NextHop = cfg.Section("server").Key("NextHop").String()
 	bgpConfig.ClientIP = cfg.Section("peer").Key("IP").String()
+	bgpConfig.UpdateSource = cfg.Section("server").Key("UpdateSource").String()
 	cAsn, _ := strconv.Atoi(cfg.Section("peer").Key("ASN").String())
 	bgpConfig.ClientASN = cAsn
 
@@ -393,16 +395,16 @@ func main() {
 	// global configuration
 	if err := s.StartBgp(context.Background(), &api.StartBgpRequest{
 		Global: &api.Global{
-			Asn:        uint32(bgpConfig.ServerASN),
-			RouterId:   bgpConfig.ID,
-			ListenPort: -1,
+			Asn:              uint32(bgpConfig.ServerASN),
+			RouterId:         bgpConfig.ID,
+			ListenPort:       179, // -1 gobgp won't listen on tcp:
+			UseMultiplePaths: true,
+			ListenAddresses:  []string{"0.0.0.0"},
 			GracefulRestart: &api.GracefulRestart{
-				Enabled:     true, // 启用Graceful Restart
-				RestartTime: 120,  // 重启时间（以秒为单位）
-
+				Enabled:             true, // 启用Graceful Restart
+				RestartTime:         120,  // 重启时间（以秒为单位）
 				NotificationEnabled: true, // 启用Graceful Restart通知
-			}, // gobgp won't listen on tcp:
-
+			},
 		},
 	}); err != nil {
 		log.Fatal(err)
@@ -422,8 +424,12 @@ func main() {
 			NeighborAddress: bgpConfig.ClientIP,
 			PeerAsn:         uint32(bgpConfig.ClientASN),
 		},
+		Transport: &api.Transport{
+			LocalAddress: bgpConfig.UpdateSource,
+		},
 	}
 	if err := s.AddPeer(context.Background(), &api.AddPeerRequest{
+
 		Peer: n,
 	}); err != nil {
 		log.Fatal(err)
