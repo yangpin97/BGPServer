@@ -175,38 +175,51 @@ func Add(s *server.BgpServer, result *updateBGPStruct.Result) {
 		Prefix:    result.NetPrefix,
 		PrefixLen: result.NetMask,
 	})
-	a5, _ := apb.New(&api.MultiExitDiscAttribute{
-		Med: uint32(100),
-	})
+	//a5, _ := apb.New(&api.MultiExitDiscAttribute{
+	//	Med: uint32(100),
+	//})
 	a1, _ := apb.New(&api.OriginAttribute{
 		Origin: uint32(result.Type),
 	})
 	a2, _ := apb.New(&api.NextHopAttribute{
 		NextHop: bgpConfig.NextHop,
 	})
-	a3, _ := apb.New(&api.AsPathAttribute{
-		Segments: []*api.AsSegment{
-			{
-				Type:    2,
-				Numbers: result.ASPath,
+	var a3 *apb.Any
+	if len(result.AsSet) > 0 {
+		a3, _ = apb.New(&api.AsPathAttribute{
+			Segments: []*api.AsSegment{
+				{
+					Type:    2,
+					Numbers: result.ASPath,
+				},
+				{
+					Type:    1,
+					Numbers: result.AsSet,
+				},
 			},
-			{
-				Type:    1,
-				Numbers: result.AsSet,
+		})
+	} else {
+		a3, _ = apb.New(&api.AsPathAttribute{
+			Segments: []*api.AsSegment{
+				{
+					Type:    2,
+					Numbers: result.ASPath,
+				},
 			},
-		},
-	})
+		})
+	}
+
 	//var a7 *apb.Any
 	//if len(result.AsSet) > 0 {
 	//	a7, _ = apb.New(&api.AggregatorAttribute{
 	//		Asn:     uint32(32),
-	//		Address: "x.x.x.x,
+	//		Address: "192.168.2.22",
 	//	})
 	//} else {
 	//	a7 = nil
 	//}
-
-	attrs := []*apb.Any{a1, a2, a3, a5}
+	var attrs []*apb.Any
+	attrs = []*apb.Any{a1, a2, a3}
 
 	_, err := s.AddPath(context.Background(), &api.AddPathRequest{
 		Path: &api.Path{
@@ -317,19 +330,20 @@ var wg sync.WaitGroup
 var COUNTRY string
 
 func findInCN(IP string) bool {
-	_, data1 := ChinaBGP.Find(IP)
 
-	if COUNTRY == "ALL" {
-		return true
-	}
-	if COUNTRY == "NCN" {
-		if data1.Country != "CN" {
-			return true
-		} else {
-			return false
-		}
-	}
+	_, data1 := ChinaBGP.Find(IP)
 	if data1 != nil {
+		if COUNTRY == "ALL" {
+			return true
+		}
+		if COUNTRY == "NCN" {
+			if data1.Country != "CN" {
+				return true
+			} else {
+				return false
+			}
+		}
+
 		if data1.Country == COUNTRY {
 			return true
 		} else {
