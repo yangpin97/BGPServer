@@ -2,14 +2,14 @@
 
 **实时获取全球BGP路由软件**
 
-## 运行命令参数说明： 
-### -c 指定config.ini 文件路径（相对路径即可）<br>
-### -l 指定需要获得的国家路由，例如：CN、US、HK，另外有两个特定参数：NCN（所有非CN路由）； ALL（全球BGP路由） <br>
+### 运行命令参数说明： 
+#### -c 指定config.ini 文件路径（相对路径即可）<br>
+#### -l 指定需要获得的国家路由，例如：CN、US、HK，另外有两个特定参数：NCN（所有非CN路由）； ALL（全球BGP路由） <br>
 
-### 例如1：./bgp -c ./config.ini -l ALL （全球BGP）<br>
-### 例如2：./bgp -c ./config.ini -l US （美国BGP路由）<br>
-### 例如3：./bgp -c ./config.ini -l CN （中国BGP路由）<br>
-### 例如4：./bgp -c ./config.ini -l NCN （中国以外的BGP路由）<br>
+#### 例如1：./bgp -c ./config.ini -l ALL （全球BGP）<br>
+#### 例如2：./bgp -c ./config.ini -l US （美国BGP路由）<br>
+##### 例如3：./bgp -c ./config.ini -l CN （中国BGP路由）<br>
+#### 例如4：./bgp -c ./config.ini -l NCN （中国以外的BGP路由）<br>
 
 #### config.ini配置文件只需设置 服务器：routerid、peer、nexthop、peer对端IP、peer对端ASN、updateSource <br>
 
