@@ -13,7 +13,7 @@
 
 #### config.ini配置文件只需设置 服务器：routerid、peer、nexthop、peer对端IP、peer对端ASN、updateSource <br>
 
-#### 建议在能科学上网的环境下运行 否则不一定保证能接收到实时路由 <br>
+#### 建议在能科学上网的环境下运行，否则不一定保证能接收到实时路由 <br>
 
 #### BGP 通信端口为 TCP 179 需要开放此端口通信 <br>
 
