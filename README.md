@@ -19,8 +19,8 @@
 
 #### 使用方法：
 ##### 1、下载releases中的：bgp，ChinaBGPZip.gob，config.ini，map.json.gz 四个文件到同一个目录下，比如/root/bgp
-##### 2、赋予bgp文件执行权限：sudo chmod +x bgp
-##### 3、前端运行直接复制上面的列如模式即可
+##### 2、进入目录：cd /root/bgp，赋予bgp文件执行权限：sudo chmod +x bgp
+##### 3、前端运行直接复制上面的例如回车即可
 ##### 4、后端运行请参考下面的方式：
 ###### 4.1、sudo apt-get update
 ###### 4.2、sudo apt-get install screen
