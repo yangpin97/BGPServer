@@ -30,9 +30,9 @@
 ###### 4.5、先按下 Ctrl + A，然后按下 Ctrl + D，这将从 screen 会话中断开连接，但会保持会话处于后台运行状态。
 ###### 4.6、终止会话直接按下：Ctrl + C
 
-## 使用Docker部署Bgpserver：
+## 使用Docker部署BGPServer：
 
-### 用于结合vyos配置路由分流
+**用于结合vyos配置路由分流**
 
 #### [参考教程-【Vyos-开源篇-10】- Docker 镜像 BGPServer 在 VyOS 中的详细配置](https://yangpin.link/archives/1764.html)
 
