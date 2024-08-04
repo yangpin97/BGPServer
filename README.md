@@ -17,7 +17,8 @@
 
 #### BGP 通信端口为 TCP 179 需要开放此端口通信 <br>
 
-#### 使用方法：
+## 二进制运行：
+
 ##### 1、下载releases中的：bgp，ChinaBGPZip.gob，config.ini，map.json.gz 四个文件到同一个目录下，比如/root/bgp
 ##### 2、进入目录：cd /root/bgp，赋予bgp文件执行权限：sudo chmod +x bgp
 ##### 3、前端运行直接复制上面的例如回车即可
@@ -28,5 +29,13 @@
 ###### 4.4、查看运行状态：sudo screen -r bgp_session
 ###### 4.5、先按下 Ctrl + A，然后按下 Ctrl + D，这将从 screen 会话中断开连接，但会保持会话处于后台运行状态。
 ###### 4.6、终止会话直接按下：Ctrl + C
+
+## 使用Docker部署Bgpserver：
+
+### 用于结合vyos配置路由分流
+
+#### [参考教程-【Vyos-开源篇-10】- Docker 镜像 BGPServer 在 VyOS 中的详细配置](https://yangpin.link/archives/1764.html)
+
+### VyOS-技术交流群：228621344
 
 ## *仅用于学习目的*
