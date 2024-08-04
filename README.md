@@ -36,6 +36,4 @@
 
 #### [参考教程-【Vyos-开源篇-10】- Docker 镜像 BGPServer 在 VyOS 中的详细配置](https://yangpin.link/archives/1764.html)
 
-### VyOS-技术交流群：228621344
-
-## *仅用于学习目的*
+## *仅用于学习目的 VyOS-技术交流群：228621344*
